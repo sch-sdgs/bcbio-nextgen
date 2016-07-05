@@ -1,0 +1,290 @@
+{
+   "1": {
+      "sequence": "AACGTGAT"
+   },
+   "2": {
+      "sequence": "AAACATCG"
+   },
+   "3": {
+      "sequence": "ATGCCTAA"
+   },
+   "4": {
+      "sequence": "AGTGGTCA"
+   },
+   "5": {
+      "sequence": "ACCACTGT"
+   },
+   "6": {
+      "sequence": "ACATTGGC"
+   },
+   "7": {
+      "sequence": "CAGATCTG"
+   },
+   "8": {
+      "sequence": "CATCAAGT"
+   },
+   "9": {
+      "sequence": "CGCTGATC"
+   },
+   "10": {
+      "sequence": "ACAAGCTA"
+   },
+   "11": {
+      "sequence": "CTGTAGCC"
+   },
+   "12": {
+      "sequence": "AGTACAAG"
+   },
+   "13": {
+      "sequence": "AACAACCA"
+   },
+   "14": {
+      "sequence": "AACCGAGA"
+   },
+   "15": {
+      "sequence": "AACGCTTA"
+   },
+   "16": {
+      "sequence": "AAGACGGA"
+   },
+   "17": {
+      "sequence": "AAGGTACA"
+   },
+   "18": {
+      "sequence": "ACACAGAA"
+   },
+   "19": {
+      "sequence": "ACAGCAGA"
+   },
+   "20": {
+      "sequence": "ACCTCCAA"
+   },
+   "21": {
+      "sequence": "ACGCTCGA"
+   },
+   "22": {
+      "sequence": "ACGTATCA"
+   },
+   "23": {
+      "sequence": "ACTATGCA"
+   },
+   "24": {
+      "sequence": "AGAGTCAA"
+   },
+   "25": {
+      "sequence": "AGATCGCA"
+   },
+   "26": {
+      "sequence": "AGCAGGAA"
+   },
+   "27": {
+      "sequence": "AGTCACTA"
+   },
+   "28": {
+      "sequence": "ATCCTGTA"
+   },
+   "29": {
+      "sequence": "ATTGAGGA"
+   },
+   "30": {
+      "sequence": "CAACCACA"
+   },
+   "31": {
+      "sequence": "CAAGACTA"
+   },
+   "32": {
+      "sequence": "CAATGGAA"
+   },
+   "33": {
+      "sequence": "CACTTCGA"
+   },
+   "34": {
+      "sequence": "CAGCGTTA"
+   },
+   "35": {
+      "sequence": "CATACCAA"
+   },
+   "36": {
+      "sequence": "CCAGTTCA"
+   },
+   "37": {
+      "sequence": "CCGAAGTA"
+   },
+   "38": {
+      "sequence": "CCGTGAGA"
+   },
+   "39": {
+      "sequence": "CCTCCTGA"
+   },
+   "40": {
+      "sequence": "CGAACTTA"
+   },
+   "41": {
+      "sequence": "CGACTGGA"
+   },
+   "42": {
+      "sequence": "CGCATACA"
+   },
+   "43": {
+      "sequence": "CTCAATGA"
+   },
+   "44": {
+      "sequence": "CTGAGCCA"
+   },
+   "45": {
+      "sequence": "CTGGCATA"
+   },
+   "46": {
+      "sequence": "GAATCTGA"
+   },
+   "47": {
+      "sequence": "GACTAGTA"
+   },
+   "48": {
+      "sequence": "GAGCTGAA"
+   },
+   "49": {
+      "sequence": "GATAGACA"
+   },
+   "50": {
+      "sequence": "GCCACATA"
+   },
+   "51": {
+      "sequence": "GCGAGTAA"
+   },
+   "52": {
+      "sequence": "GCTAACGA"
+   },
+   "53": {
+      "sequence": "GCTCGGTA"
+   },
+   "54": {
+      "sequence": "GGAGAACA"
+   },
+   "55": {
+      "sequence": "GGTGCGAA"
+   },
+   "56": {
+      "sequence": "GTACGCAA"
+   },
+   "57": {
+      "sequence": "GTCGTAGA"
+   },
+   "58": {
+      "sequence": "GTCTGTCA"
+   },
+   "59": {
+      "sequence": "GTGTTCTA"
+   },
+   "60": {
+      "sequence": "TAGGATGA"
+   },
+   "61": {
+      "sequence": "TATCAGCA"
+   },
+   "62": {
+      "sequence": "TCCGTCTA"
+   },
+   "63": {
+      "sequence": "TCTTCACA"
+   },
+   "64": {
+      "sequence": "TGAAGAGA"
+   },
+   "65": {
+      "sequence": "TGGAACAA"
+   },
+   "66": {
+      "sequence": "TGGCTTCA"
+   },
+   "67": {
+      "sequence": "TGGTGGTA"
+   },
+   "68": {
+      "sequence": "TTCACGCA"
+   },
+   "69": {
+      "sequence": "AACTCACC"
+   },
+   "70": {
+      "sequence": "AAGAGATC"
+   },
+   "71": {
+      "sequence": "AAGGACAC"
+   },
+   "72": {
+      "sequence": "AATCCGTC"
+   },
+   "73": {
+      "sequence": "AATGTTGC"
+   },
+   "74": {
+      "sequence": "ACACGACC"
+   },
+   "75": {
+      "sequence": "ACAGATTC"
+   },
+   "76": {
+      "sequence": "AGATGTAC"
+   },
+   "77": {
+      "sequence": "AGCACCTC"
+   },
+   "78": {
+      "sequence": "AGCCATGC"
+   },
+   "79": {
+      "sequence": "AGGCTAAC"
+   },
+   "80": {
+      "sequence": "ATAGCGAC"
+   },
+   "81": {
+      "sequence": "ATCATTCC"
+   },
+   "82": {
+      "sequence": "ATTGGCTC"
+   },
+   "83": {
+      "sequence": "CAAGGAGC"
+   },
+   "84": {
+      "sequence": "CACCTTAC"
+   },
+   "85": {
+      "sequence": "CCATCCTC"
+   },
+   "86": {
+      "sequence": "CCGACAAC"
+   },
+   "87": {
+      "sequence": "CCTAATCC"
+   },
+   "88": {
+      "sequence": "CCTCTATC"
+   },
+   "89": {
+      "sequence": "CGACACAC"
+   },
+   "90": {
+      "sequence": "CGGATTGC"
+   },
+   "91": {
+      "sequence": "CTAAGGTC"
+   },
+   "92": {
+      "sequence": "GAACAGGC"
+   },
+   "93": {
+      "sequence": "GACAGTGC"
+   },
+   "94": {
+      "sequence": "GAGTTAGC"
+   },
+   "95": {
+      "sequence": "GATGAATC"
+   },
+   "96": {
+      "sequence": "GCCAAGAC"
+   }
+}
