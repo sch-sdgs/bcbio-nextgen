@@ -22,6 +22,8 @@ def copy_flowcell(dname, fastq_dir, sample_cfile, config):
         run_info = reduce(operator.add,
                           [glob.glob("run_info.yaml"),
                            glob.glob("*.csv")])
+        print os.path.join(fastq_dir.replace(dname + "/", "", 1),
+                     "*.gz")
         fastq = glob.glob(os.path.join(fastq_dir.replace(dname + "/", "", 1),
                                        "*.gz"))
         configs = [sample_cfile.replace(dname + "/", "", 1)]

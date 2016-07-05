@@ -50,34 +50,37 @@ class GalaxyApiAccess:
                 data = {}
         return data
 
-    def run_details(self, run_bc, run_date=None):
-        """Next Gen LIMS specific API functionality.
-        """
+def run_details(self, run_bc, run_date=None):
+    """Next Gen LIMS specific API functionality.
+    """
+    try:
+        details = self._get("/nglims/api_run_details", dict(run=run_bc))
+    except ValueError:
+        raise ValueError("Could not find information in Galaxy for run: %s" % run_bc)
+    if details.has_key("error") and run_date is not None:
         try:
-            details = self._get("/nglims/api_run_details", dict(run=run_bc))
+            details = self._get("/nglims/api_run_details", dict(run=run_date))
         except ValueError:
-            raise ValueError("Could not find information in Galaxy for run: %s" % run_bc)
-        if details.has_key("error") and run_date is not None:
-            try:
-                details = self._get("/nglims/api_run_details", dict(run=run_date))
-            except ValueError:
-                raise ValueError("Could not find information in Galaxy for run: %s" % run_date)
-        return details
+            raise ValueError("Could not find information in Galaxy for run: %s" % run_date)
+    return details
 
-    def sequencing_projects(self):
-        """Next Gen LIMS: retrieve summary information of sequencing projects.
-        """
-        return self._get("/nglims/api_projects")
 
-    def sqn_run_summary(self, run_info):
-        """Next Gen LIMS: Upload sequencing run summary information.
-        """
-        return self._post("/nglims/api_upload_sqn_run_summary",
-                data=run_info)
+def sequencing_projects(self):
+    """Next Gen LIMS: retrieve summary information of sequencing projects.
+    """
+    return self._get("/nglims/api_projects")
 
-    def sqn_report(self, start_date, end_date):
-        """Next Gen LIMS: report of items sequenced in a time period.
-        """
-        return self._get("/nglims/api_sqn_report",
-                dict(start=start_date, end=end_date))
+
+def sqn_run_summary(self, run_info):
+    """Next Gen LIMS: Upload sequencing run summary information.
+    """
+    return self._post("/nglims/api_upload_sqn_run_summary",
+                      data=run_info)
+
+
+def sqn_report(self, start_date, end_date):
+    """Next Gen LIMS: report of items sequenced in a time period.
+    """
+    return self._get("/nglims/api_sqn_report",
+                     dict(start=start_date, end=end_date))
 

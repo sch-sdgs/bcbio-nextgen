@@ -31,7 +31,7 @@ import argparse
 import sys
 
 from bcbio import install, utils, workflow
-from bcbio.illumina import machine
+from bcbio.illumina import machine_sdgs
 from bcbio.distributed import runfn, clargs
 from bcbio.pipeline.main import run_main
 from bcbio.server import main as server_main
@@ -52,7 +52,7 @@ def parse_cl_args(in_args):
                 "runfn": runfn.add_subparser,
                 "graph": graph.add_subparser,
                 "version": programs.add_subparser,
-                "sequencer": machine.add_subparser}
+                "sequencer": machine_sdgs.add_subparser}
     description = "Community developed high throughput sequencing analysis."
     parser = argparse.ArgumentParser(description=description)
     sub_cmd = None
@@ -214,7 +214,7 @@ if __name__ == "__main__":
     elif "version" in kwargs and kwargs["version"]:
         programs.write_versions({"work": kwargs["args"].workdir})
     elif "sequencer" in kwargs and kwargs["sequencer"]:
-        machine.check_and_postprocess(kwargs["args"])
+        machine_sdgs.check_and_postprocess(kwargs["args"])
     else:
         if kwargs.get("workflow"):
             setup_info = workflow.setup(kwargs["workflow"], kwargs.pop("inputs"))

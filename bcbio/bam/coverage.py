@@ -146,3 +146,4 @@ def plot_multiple_regions_coverage(samples, out_file, data, region_bed=None, ste
                     pdf_out.savefig(plot.get_figure())
                     plt.close()
     return out_file
+
