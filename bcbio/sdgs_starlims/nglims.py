@@ -9,6 +9,7 @@ import joblib
 import yaml
 import json
 
+from bcbio.log import logger
 from bcbio import utils
 from bcbio.distributed.transaction import file_transaction
 from bcbio.sdgs_starlims.api import StarLimsApi
@@ -48,6 +49,7 @@ def _prep_sample_and_config(ldetail_group, fastq_dir, fastq_final_dir):
         fastq_inputs = sorted(list(set(reduce(operator.add,
                                               (_get_fastq_files(x, read, fastq_dir) for x in ldetail_group)))))
         if len(fastq_inputs) > 0:
+            logger.info("Merging FastQ files for" + ldetail_group[0]["name"])
             files.append(_concat_bgzip_fastq(fastq_inputs, fastq_final_dir, read, ldetail_group[0]))
         else:
             # TODO: need to fail if number of fastq files does not match expected
@@ -189,23 +191,23 @@ def get_runinfo(run_folder, storedir):
                 item = {}
                 sample_id = i["CONTAINERID"]
                 position = i["POSITION_IN_RUN"]
-                library = i["CAPTUREMETHOD"]
                 if sample_id not in samples:
                     samples.append(sample_id)
                     if position is not None:
                         item["name"] = sample_id
                         position = position.lstrip('0')
                         bc_index = barcodes[str(position)]["sequence"]
+                        item["regions"] = i["BED"]
                         item["analysis"] = "variant"
                         item["bc_index"] = bc_index
                         item["lane"] = lane  # lane number
                         item["name"] = sample_id
-                        item["genome_build"] = "genome_build"  # this is the genome build
+                        item["genome_build"] = "GRCh37"  # this is the genome build
                         item["description"] = "description"
                         item["project_name"] = worklist  # worklist
                         item["upload"] = {"method": "stalims", "run_id": fc_name,
                                           "fc_name": fc_name, "fc_date": fc_date,
-                                          "dir": storedir, "library_method": library}
+                                          "dir": storedir, "library_method": i["CAPTUREMETHOD"]}
 
                         for k in ["lab_association", "private_libs", "researcher", "researcher_id", "sample_id",
                                   "galaxy_library", "galaxy_role"]:

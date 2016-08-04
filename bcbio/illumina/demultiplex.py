@@ -5,6 +5,7 @@ Uses Illumina's bcl2fastq: http://support.illumina.com/downloads/bcl2fastq_conve
 import os
 import subprocess
 import time
+from bcbio.log import logger
 
 from bcbio import utils
 
@@ -14,19 +15,23 @@ def run_bcl2fastq(run_folder, ss_csv, config):
     run_folder -- directory of Illumina outputs
     ss_csv -- Samplesheet CSV file describing samples.
     """
-    print ss_csv
     bc_dir = os.path.join(run_folder, "Data", "Intensities", "BaseCalls")
     output_dir = os.path.join(run_folder, "fastq")
-    print output_dir
+
     if not os.path.exists(os.path.join(output_dir, "Makefile")):
-        subprocess.check_call(
-            ["configureBclToFastq.pl", "--use-bases-mask", "y*,I8,y*", "--mismatches", "1", "--fastq-cluster-count",
+        cmd = " ".join(["configureBclToFastq.pl", "--use-bases-mask", "y*,I8,y*", "--mismatches", "1", "--fastq-cluster-count",
              "0", "--no-eamss", "--input-dir", bc_dir, "--output-dir", output_dir,
              "--adapter-sequence",
              "/usr/local/bcl2fastq-1.8.4/share/bcl2fastq-1.8.4/adapters/TruSeq_r1.fa",
              "--adapter-sequence",
              "/usr/local/bcl2fastq-1.8.4/share/bcl2fastq-1.8.4/adapters/TruSeq_r2.fa",
              "--sample-sheet", ss_csv])
+
+        logger.info("Configuring BclToFastq")
+        logger.info(cmd)
+
+        subprocess.check_call(cmd)
+
     with utils.chdir(output_dir):
         cores = str(utils.get_in(config, ("algorithm", "num_cores"), 1))
         cmd = ["make", "-j", cores]
