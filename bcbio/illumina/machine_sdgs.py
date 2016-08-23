@@ -123,28 +123,28 @@ def _is_finished_dumping(directory):
     hi_seq_checkpoint = "Basecalling_Netcopy_complete_Read%s.txt" % \
                         _expected_reads(run_info)
     to_check = ["Basecalling_Netcopy_complete_SINGLEREAD.txt",
-                "Basecalling_Netcopy_complete_READ2.txt",
+                "Basecalling_Netcopy_complete_read2.txt",
                 hi_seq_checkpoint]
     return reduce(operator.or_,
                   [os.path.exists(os.path.join(directory, f)) for f in to_check])
 
-def _is_finished_dumping_checkpoint(directory):
-    """Recent versions of RTA (1.10 or better), write the complete file.
-
-    This is the most straightforward source but as of 1.10 still does not
-    work correctly as the file will be created at the end of Read 1 even
-    if there are multiple reads.
-    """
-    check_file = os.path.join(directory, "Basecalling_Netcopy_complete.txt")
-    check_v1, check_v2 = (1, 10)
-    if os.path.exists(check_file):
-        with open(check_file) as in_handle:
-            line = in_handle.readline().strip()
-        if line:
-            version = line.split()[-1]
-            v1, v2 = [float(v) for v in version.split(".")[:2]]
-            if ((v1 > check_v1) or (v1 == check_v1 and v2 >= check_v2)):
-                return True
+# def _is_finished_dumping_checkpoint(directory):
+#     """Recent versions of RTA (1.10 or better), write the complete file.
+#
+#     This is the most straightforward source but as of 1.10 still does not
+#     work correctly as the file will be created at the end of Read 1 even
+#     if there are multiple reads.
+#     """
+#     check_file = os.path.join(directory, "Basecalling_Netcopy_complete.txt")
+#     check_v1, check_v2 = (1, 10)
+#     if os.path.exists(check_file):
+#         with open(check_file) as in_handle:
+#             line = in_handle.readline().strip()
+#         if line:
+#             version = line.split()[-1]
+#             v1, v2 = [float(v) for v in version.split(".")[:2]]
+#             if ((v1 > check_v1) or (v1 == check_v1 and v2 >= check_v2)):
+#                 return True
 
 def _expected_reads(run_info_file):
     """Parse the number of expected reads from the RunInfo.xml file.
