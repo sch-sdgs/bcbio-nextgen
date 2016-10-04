@@ -16,8 +16,8 @@ def run_bcl2fastq(run_folder, ss_csv, config):
     ss_csv -- Samplesheet CSV file describing samples.
     """
     bc_dir = os.path.join(run_folder, "Data", "Intensities", "BaseCalls")
-    output_dir = os.path.join(run_folder, "fastq")
-
+    #output_dir = os.path.join(run_folder, "fastq")
+    output_dir= utils.get_in(config, ("process", "storedir"))
     if not os.path.exists(os.path.join(output_dir, "Makefile")):
         cmd = " ".join(["configureBclToFastq.pl", "--use-bases-mask", "y*,I8,y*", "--mismatches", "1", "--fastq-cluster-count",
              "0", "--no-eamss", "--input-dir", bc_dir, "--output-dir", output_dir,
@@ -25,8 +25,8 @@ def run_bcl2fastq(run_folder, ss_csv, config):
              "/usr/local/bcl2fastq-1.8.4/share/bcl2fastq-1.8.4/adapters/TruSeq_r1.fa",
              "--adapter-sequence",
              "/usr/local/bcl2fastq-1.8.4/share/bcl2fastq-1.8.4/adapters/TruSeq_r2.fa",
-             "--sample-sheet", ss_csv])
-
+             "--sample-sheet", ss_csv, "--force"])
+        print cmd
         logger.info("Configuring BclToFastq")
         logger.info(cmd)
 

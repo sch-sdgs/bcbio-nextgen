@@ -42,6 +42,19 @@ class StarLimsApi:
         result = recursive_asdict(response)
         return self.format_result(result)
 
+    def ngs_by_container(self, container_id):
+        """
+        method to get patient data based on dna container id
+
+        :param container_id: container id i.e. S1604013-02
+        :return: patient info
+        """
+        runName = {"containerID": container_id}
+        client = self._get_client()
+        response = client.service.NGSByContainer(**runName)
+        result = recursive_asdict(response)
+        return self.format_result(result)[0]
+
     def format_result(self,result):
         """
         format the dict suds object and add patients to a list

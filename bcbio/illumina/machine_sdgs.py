@@ -30,11 +30,11 @@ def check_and_postprocess(args):
         if isinstance(lane_details, dict) and "error" in lane_details:
             print "Flowcell not found in Galaxy: %s" % lane_details
         else:
-            #lane_details = _tweak_lane(lane_details, dname)
-            fcid_ss = samplesheet.from_flowcell(dname, lane_details)
+            lane_details = _tweak_lane(lane_details, dname)
+            fcid_ss = samplesheet.from_flowcell(dname, lane_details,out_dir=utils.get_in(config, ("process", "storedir")))
             _update_reported(config["msg_db"], dname)
-            #fastq_dir = demultiplex.run_bcl2fastq(dname, fcid_ss, config)
-            fastq_dir="/results/HiSeq/150709_D00461_0040_AHTC7VADXX/fastq"
+            fastq_dir = demultiplex.run_bcl2fastq(dname, fcid_ss, config)
+            #fastq_dir="/results/HiSeq/150709_D00461_0040_AHTC7VADXX/fastq"
             bcbio_config, ready_fastq_dir = nglims.prep_samples_and_config(dname, lane_details, fastq_dir, config)
             transfer.copy_flowcell(dname, ready_fastq_dir, bcbio_config, config)
             _start_processing(dname, bcbio_config, config)

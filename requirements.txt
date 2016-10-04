@@ -1,1 +1,2 @@
 bcbio-nextgen==0.9.8
+suds

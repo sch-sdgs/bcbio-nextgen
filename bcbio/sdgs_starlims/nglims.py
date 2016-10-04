@@ -17,7 +17,7 @@ from bcbio.illumina import flowcell
 from bcbio.pipeline.run_info import clean_name
 from bcbio.workflow import template
 
-json_data=open("/home/bioinfo/mparker/barcodes.json").read()
+json_data=open("/home/dnamdp/wc/bcbio-nextgen/bcbio/sdgs_starlims/barcodes.json").read()
 
 barcodes = json.loads(json_data)
 
@@ -203,7 +203,7 @@ def get_runinfo(run_folder, storedir):
                         item["lane"] = lane  # lane number
                         item["name"] = sample_id
                         item["genome_build"] = "GRCh37"  # this is the genome build
-                        item["description"] = "description"
+                        item["description"] = i["PID"]
                         item["project_name"] = worklist  # worklist
                         item["upload"] = {"method": "stalims", "run_id": fc_name,
                                           "fc_name": fc_name, "fc_date": fc_date,

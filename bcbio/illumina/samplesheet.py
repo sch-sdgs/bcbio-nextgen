@@ -34,6 +34,7 @@ def from_flowcell(run_folder, lane_details, out_dir=None):
 def _lane_detail_to_ss(fcid, ldetail):
     """Convert information about a lane into Illumina samplesheet output.
     """
+    print ldetail
     return [fcid, ldetail["lane"], ldetail["name"], ldetail["genome_build"],
             ldetail["bc_index"], ldetail["description"], "N", "", "",
             ldetail["project_name"]]

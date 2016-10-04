@@ -20,7 +20,7 @@ def write_version_py():
         out_handle.write("\n".join(['__version__ = "%s"' % version,
                                     '__git_revision__ = "%s"' % githash]))
 
-install_requires = [] # install dependencies via conda
+install_requires = ["suds"] # install dependencies via conda
 zip_safe = False
 scripts = ['scripts/bcbio_nextgen.py', 'scripts/bcbio_setup_genome.py', 'scripts/bcbio_prepare_samples.py']
 
