@@ -10,7 +10,7 @@ from bcbio.log import logger
 from bcbio import utils
 
 
-def run_bcl2fastq(run_folder, ss_csv, config):
+def run_bcl2fastq(run_folder, ss_csv, config, worklist):
     """Run bcl2fastq for de-multiplexing and fastq generation.
     run_folder -- directory of Illumina outputs
     ss_csv -- Samplesheet CSV file describing samples.
@@ -20,23 +20,22 @@ def run_bcl2fastq(run_folder, ss_csv, config):
     output_dir= utils.get_in(config, ("process", "storedir"))
     if not os.path.exists(os.path.join(output_dir, "Makefile")):
         cmd = " ".join(["configureBclToFastq.pl", "--use-bases-mask", "y*,I8,y*", "--mismatches", "1", "--fastq-cluster-count",
-             "0", "--no-eamss", "--input-dir", bc_dir, "--output-dir", output_dir,
+             "0", "--no-eamss", "--input-dir", bc_dir, "--output-dir", output_dir + "/" + worklist,
              "--adapter-sequence",
-             "/usr/local/bcl2fastq-1.8.4/share/bcl2fastq-1.8.4/adapters/TruSeq_r1.fa",
+             "/sdgs/reference/misc/adapters/TruSeq_r1.fa",
              "--adapter-sequence",
-             "/usr/local/bcl2fastq-1.8.4/share/bcl2fastq-1.8.4/adapters/TruSeq_r2.fa",
+             "/sdgs/reference/misc/adapters/TruSeq_r2.fa",
              "--sample-sheet", ss_csv, "--force"])
         print cmd
         logger.info("Configuring BclToFastq")
         logger.info(cmd)
-
-        subprocess.check_call(cmd)
+        subprocess.check_call(cmd,shell=True)
 
     with utils.chdir(output_dir):
         cores = str(utils.get_in(config, ("algorithm", "num_cores"), 1))
         cmd = ["make", "-j", cores]
         if "submit_cmd" in config["process"] and "bcl2fastq_batch" in config["process"]:
-            _submit_and_wait(cmd, cores, config, output_dir)
+            _submit_and_wait(cmd, cores, config, output_dir + "/" + worklist)
         else:
             subprocess.check_call(cmd)
     return output_dir
@@ -51,6 +50,7 @@ def _submit_and_wait(cmd, cores, config, output_dir):
         if os.path.exists(batch_script + ".failed"):
             os.remove(batch_script + ".failed")
         with open(batch_script, "w") as out_handle:
+            print output_dir
             out_handle.write(config["process"]["bcl2fastq_batch"].format(
                 cores=cores, bcl2fastq_cmd=" ".join(cmd), batch_script=batch_script, output_dir=output_dir))
         submit_cmd = utils.get_in(config, ("process", "submit_cmd"))

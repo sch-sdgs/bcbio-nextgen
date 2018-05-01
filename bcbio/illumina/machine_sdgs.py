@@ -31,10 +31,15 @@ def check_and_postprocess(args):
             print "Flowcell not found in Galaxy: %s" % lane_details
         else:
             lane_details = _tweak_lane(lane_details, dname)
-            fcid_ss = samplesheet.from_flowcell(dname, lane_details,out_dir=utils.get_in(config, ("process", "storedir")))
+            if len(lane_details) > 0:
+                worklist = lane_details[0]["project_name"]
+                fcid_ss = samplesheet.from_flowcell(dname, lane_details,
+                                                    out_dir=utils.get_in(config, ("process", "storedir")))
+            else:
+                worklist = "research"
+                fcid_ss = dname + "/SampleSheet.csv"
             _update_reported(config["msg_db"], dname)
-            fastq_dir = demultiplex.run_bcl2fastq(dname, fcid_ss, config)
-            #fastq_dir="/results/HiSeq/150709_D00461_0040_AHTC7VADXX/fastq"
+            fastq_dir = demultiplex.run_bcl2fastq(dname, fcid_ss, config, worklist)
             bcbio_config, ready_fastq_dir = nglims.prep_samples_and_config(dname, lane_details, fastq_dir, config)
             transfer.copy_flowcell(dname, ready_fastq_dir, bcbio_config, config)
             _start_processing(dname, bcbio_config, config)
@@ -100,13 +105,21 @@ def _find_unprocessed(config):
     """
     reported = _read_reported(config["msg_db"])
     for dname in _get_directories(config):
+        print dname
         if os.path.isdir(dname) and dname not in reported:
             if _is_finished_dumping(dname):
                 yield dname
 
 def _get_directories(config):
     for directory in config["dump_directories"]:
-        for dname in sorted(glob.glob(os.path.join(directory, "*[Aa]*[Xx][Xx]"))):
+        #handle hiseq directories
+        for dname in sorted(glob.glob(os.path.join(directory, "*[AaBb]*[XxYy][XxYy]"))):
+            print dname
+            if os.path.isdir(dname):
+                yield dname
+        #handle miseq directories
+        for dname in sorted(glob.glob(os.path.join(directory, "*M00969*[AaBb]*"))):
+            print dname
             if os.path.isdir(dname):
                 yield dname
 

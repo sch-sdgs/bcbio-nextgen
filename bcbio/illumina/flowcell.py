@@ -14,8 +14,9 @@ def parse_dirname(fc_dir):
     parts = fc_dir.split("_")
     name = None
     date = None
+    #hacked to handle miseq directories
     for p in parts:
-        if p.endswith(("XX", "xx")):
+        if p.endswith(("XX", "xx","XY","Xy","Yx","xy")):
             name = p
         elif len(p) == 6:
             try:
@@ -23,6 +24,8 @@ def parse_dirname(fc_dir):
                 date = p
             except ValueError:
                 pass
+        elif p.startswith(("000000000")):
+            name=p
     if name is None or date is None:
         raise ValueError("Did not find flowcell name: %s" % fc_dir)
     return name, date

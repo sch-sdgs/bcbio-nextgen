@@ -63,12 +63,16 @@ class StarLimsApi:
         :return: list of patient dicts
         """
         out = []
-        for i in result["diffgram"][0]["DocumentElement"][0]["results"]:
-            info = {}
-            for k, v in i.items():
-                info[k] = "".join(v)
-            out.append(info)
-        return out
+        try:
+            for i in result["diffgram"][0]["DocumentElement"][0]["results"]:
+                info = {}
+                for k, v in i.items():
+                    info[k] = "".join(v)
+                out.append(info)
+            return out
+        except TypeError:
+            return []
+
 
 
 def recursive_asdict(d):

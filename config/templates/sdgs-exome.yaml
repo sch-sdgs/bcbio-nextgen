@@ -1,0 +1,24 @@
+# Template for whole genome Illumina variant calling with FreeBayes
+# This is a GATK-free pipeline without post-alignment BAM pre-processing
+# (recalibration and realignment)
+---
+details:
+  - analysis: variant2
+    genome_build: hg19
+    # to do multi-sample variant calling, assign samples the same metadata / batch
+    # metadata:
+    #   batch: your-arbitrary-batch-name
+    algorithm:
+      aligner: bwa
+      mark_duplicates: true
+      recalibrate: false
+      realign: false
+      variantcaller: freebayes
+      coverage_interval: regional
+      coverage: /sdgs/reference/bed/EXOME_25bp_v1.bed
+      variant_regions: /sdgs/reference/bed/EXOME_25bp_v1.bed
+      effects: vep
+      clinical_reporting: true
+
+      # for targetted projects, set the region
+      # variant_regions: /path/to/your.bed
